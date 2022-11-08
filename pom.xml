@@ -51,7 +51,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -68,5 +67,13 @@
             </plugin>
         </plugins>
     </build>
-
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>corp1</id>
+            <name>Corporate Repository</name>
+            <url>file:///home/adi/IdeaProjects/ds-lab1</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 </project>

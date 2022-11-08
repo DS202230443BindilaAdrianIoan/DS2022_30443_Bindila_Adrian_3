@@ -15,7 +15,6 @@ export default function ChartPage(props) {
 
   useEffect(() => {
     let array = new Array(24).fill(0);
-    debugger
     props.data &&
       props.data.forEach((data) => {
         array[getHoursFromDBTimestamp(data.timestamp)] = data.hourlyConsumption;

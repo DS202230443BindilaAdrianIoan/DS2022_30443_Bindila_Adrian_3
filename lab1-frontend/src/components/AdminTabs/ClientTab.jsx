@@ -35,9 +35,6 @@ export default function ClientTab(props) {
   function handleEdit(user) {
     setSelectedClient(user);
     setShowEditModal(true);
-    //show the modal with the completed fields
-    //updateClient(user);
-    //window.location.reload();
   }
 
   function handleDelete(id) {

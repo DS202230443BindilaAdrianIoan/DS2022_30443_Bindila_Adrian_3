@@ -9,7 +9,6 @@ import Register from "./components/Register";
 
 function App() {
   const [user, setUser] = useState();
-
   return (
     <BrowserRouter>
       <Routes>

@@ -64,7 +64,7 @@ export default function ClientPage(props) {
   }
   return (
     <div className="d-flex flex-row">
-      <Table striped bordered hover style={{ width: "25%" }}>
+      <Table striped bordered hover style={{ height: "25%", width:"30%" }} className="m-5">
         <thead>
           <tr>
             <th>#</th>
@@ -98,24 +98,27 @@ export default function ClientPage(props) {
           })}
         </tbody>
       </Table>
-      <FloatingLabel label="Date">
-        <FormControl
-          type="date"
-          name="date"
-          value={date}
-          onChange={(event) => {
-            setDate(convertDate(event.target.value));
+      <div className="m-5">
+        <FloatingLabel label="Date" className="my-5">
+          <FormControl
+            type="date"
+            name="date"
+            value={date}
+            onChange={(event) => {
+              setDate(convertDate(event.target.value));
+            }}
+          />
+        </FloatingLabel>
+        <FormCheck
+        className="my-5"
+          type="switch"
+          label="Graph Type"
+          onChange={() => {
+            setGraph((prev) => !prev);
           }}
         />
-      </FloatingLabel>
-      <FormCheck
-        type="switch"
-        label="Graph Type"
-        onChange={() => {
-          setGraph((prev) => !prev);
-        }}
-      />
-      <div style={{ width: "50%" }}>
+      </div>
+      <div style={{ width: "50%" }} className="m-lg-5">
         <ChartPage graph={graph} data={consumption} device={selectedDevice} />
       </div>
     </div>
