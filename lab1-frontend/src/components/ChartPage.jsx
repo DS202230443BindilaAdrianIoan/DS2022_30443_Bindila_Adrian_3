@@ -13,11 +13,12 @@ export default function ChartPage(props) {
     return hour;
   }
 
+
   useEffect(() => {
-    let array = new Array(24).fill(0);
+    var array = new Array(24).fill(0);
     props.data &&
       props.data.forEach((data) => {
-        array[getHoursFromDBTimestamp(data.timestamp)] = data.hourlyConsumption;
+        array[getHoursFromDBTimestamp(data.timestamp)] += data.hourlyConsumption;
       });
     setData({
       labels,
@@ -42,7 +43,7 @@ export default function ChartPage(props) {
             props.data[i] &&
             getHoursFromDBTimestamp(props.data[i].timestamp) === l
           ) {
-            return data.hourlyConsumption;
+            return props.data[i].hourlyConsumption;
           } else return 0;
         }),
         borderColor: "rgb(255, 99, 132)",

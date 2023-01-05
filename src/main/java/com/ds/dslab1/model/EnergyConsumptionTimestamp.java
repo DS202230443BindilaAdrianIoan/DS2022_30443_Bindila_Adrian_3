@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,7 +17,7 @@ public class EnergyConsumptionTimestamp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Basic
-    private java.time.LocalDateTime timestamp;
+    private LocalDateTime timestamp;
 
     private int hourlyConsumption;
     @ManyToOne

@@ -1,26 +1,44 @@
 import axios from "axios";
-import { Chart } from "chart.js";
 
 import { useEffect, useState } from "react";
 import {
   Button,
-  Container,
   FloatingLabel,
-  Form,
   FormCheck,
   FormControl,
-  ListGroup,
-  ListGroupItem,
   OverlayTrigger,
-  Row,
   Table,
-  ToggleButton,
   Tooltip,
 } from "react-bootstrap";
+import SockJS from "sockjs-client";
 import ChartPage from "./ChartPage";
+import {over} from "stompjs";
 
 export default function ClientPage(props) {
   let user = JSON.parse(localStorage.getItem("user"));
+  var stompClient = null;
+  
+  function connect() {
+    let Sock = new SockJS("http://localhost:8080/ws");
+    stompClient = over(Sock);
+    stompClient.connect({}, onConnected, onError);
+  }
+
+  function onConnected(){
+    console.log("Connection established!");
+    stompClient.subscribe('/user/'+user.username+'/notify', onMessage);
+    console.log("user connected");
+  }
+  
+  function onError(err){
+    console.log(err);
+  }
+
+  function onMessage(payload){
+    console.log(payload);
+  }
+
+
   async function getUserDevices(id) {
     await axios
       .get("/device/user", { params: { userId: id } })
@@ -29,6 +47,7 @@ export default function ClientPage(props) {
       })
       .catch((err) => console.log(err));
   }
+
   async function getConsumptionByDateAndId(date, id) {
     await axios
       .get("/consumption", { params: { date: date, deviceId: id } })
@@ -45,6 +64,7 @@ export default function ClientPage(props) {
 
   useEffect(() => {
     getUserDevices(user.id);
+    connect();
   }, []);
 
   useEffect(() => {
@@ -64,7 +84,13 @@ export default function ClientPage(props) {
   }
   return (
     <div className="d-flex flex-row">
-      <Table striped bordered hover style={{ height: "25%", width:"30%" }} className="m-5">
+      <Table
+        striped
+        bordered
+        hover
+        style={{ height: "25%", width: "30%" }}
+        className="m-5"
+      >
         <thead>
           <tr>
             <th>#</th>
@@ -110,7 +136,7 @@ export default function ClientPage(props) {
           />
         </FloatingLabel>
         <FormCheck
-        className="my-5"
+          className="my-5"
           type="switch"
           label="Graph Type"
           onChange={() => {

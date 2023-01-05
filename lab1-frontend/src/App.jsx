@@ -22,21 +22,12 @@ function App() {
           path="/client"
           element={
             <ClientPage />
-
-            // user && user.role === "USER" ? (
-            // ) : (
-            //   <Navigate to="/" replace />
-            // )
           }
         />
         <Route
           path="/admin"
           element={
             <AdminPage />
-            // user && user.role === "ADMIN" ? (
-            // ) : (
-            //   <Navigate to="/" replace />
-            // )
           }
         />
       </Routes>
