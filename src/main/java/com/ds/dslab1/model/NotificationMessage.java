@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class Message {
+public class NotificationMessage {
     //Energy consumption exceeded at hour %d for device %d
     private String username;
     private String deviceName;

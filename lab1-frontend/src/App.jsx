@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminPage from "./components/AdminPage";
-import ChartPage from "./components/ChartPage";
-import ChatRoom from "./components/ChatRoom";
+import ChatPage from "./components/ChatPage";
 import ClientPage from "./components/ClientPage";
 import HomePage from "./components/HomePage";
 import Login from "./components/Login";
@@ -31,7 +30,7 @@ function App() {
             <AdminPage />
           }
         />
-        <Route path="/lol" element={<ChatRoom/>}/>
+        <Route path="/chat" element={<ChatPage/>}/>
       </Routes>
     </BrowserRouter>
   );

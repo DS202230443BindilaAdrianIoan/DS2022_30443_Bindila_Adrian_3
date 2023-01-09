@@ -22,8 +22,6 @@ public class ConsumptionController {
     ConsumptionService consumptionService;
     @GetMapping
     public ResponseEntity<?> getConsumptionByDateAndId(@RequestParam String date, @RequestParam Long deviceId) {
-//        temporalValues.setLocalDateTime(LocalDateTime.parse("2017-11-15T08:22:12"));
-
         List<EnergyConsumptionTimestamp> consumptionList =
                 consumptionService.getConsumptionByDateAndId(LocalDate.parse(date), deviceId);
         List<ConsumptionDTO> consumptionDTOS = consumptionList.stream().map(consumption -> {

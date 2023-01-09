@@ -18,6 +18,7 @@ public class Device {
     private Long id;
     private String description;
     private String address;
+    private int consumptionLimit;
     @OneToMany(mappedBy = "device", cascade = CascadeType.ALL)
     private List<EnergyConsumptionTimestamp> energyConsumptionTimestamps;
     @ManyToOne

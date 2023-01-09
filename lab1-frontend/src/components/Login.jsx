@@ -10,8 +10,8 @@ export default function Login(props) {
       .then((res) => {
         let user = res.data;
         props.setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
         if (user.role === "USER") {
-          localStorage.setItem("user", JSON.stringify(user));
           navigator("/client");
         } else if (user.role === "ADMIN") {
           navigator("/admin");

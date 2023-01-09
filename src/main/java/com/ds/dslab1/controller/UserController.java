@@ -18,11 +18,13 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
     @PutMapping("/map")
-    public ResponseEntity<?> setMapping(@RequestBody LinkDTO linkDTO){
+    public ResponseEntity<?> setMapping(@RequestBody LinkDTO linkDTO) {
         userService.linkDevice(linkDTO);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/clients")
     public ResponseEntity<?> getAllClients() {
         List<User> clients = userService.getAllClients();
@@ -32,7 +34,8 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
-        return ResponseEntity.ok().build();
+        List<UserDTO> userDTOS = userService.getAllUsers().stream().map(user -> modelMapper.map(user, UserDTO.class)).toList();
+        return ResponseEntity.ok(userDTOS);
     }
 
     @PostMapping
@@ -42,7 +45,7 @@ public class UserController {
 
     @PutMapping
     public ResponseEntity<?> editUser(@RequestBody UserDTO userDTO) {
-        userService.editUser(modelMapper.map(userDTO,User.class));
+        userService.editUser(modelMapper.map(userDTO, User.class));
         return ResponseEntity.ok().build();
     }
 
