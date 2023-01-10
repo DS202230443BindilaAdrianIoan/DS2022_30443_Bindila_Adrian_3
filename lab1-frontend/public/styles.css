@@ -50,3 +50,29 @@ body {
 @media (min-width: 992px) {
   .rounded-lg-3 { border-radius: .3rem; }
 }
+
+.chat-sent-message, .chat-received-message {
+  display: flex;
+  flex-direction: row;
+}
+
+.chat-received-message {
+  justify-content: start;
+}
+
+.chat-sent-message {
+  justify-content: end;
+}
+
+.chat-sent-message div, .chat-received-message div {
+  width: 80%;
+  border-radius: 10px !important;
+}
+
+.chat-sent-message div {
+  background-color: rgb(108, 197, 226);
+}
+
+.chat-received-message div {
+  background-color: rgb(224, 224, 224);
+}

@@ -11,10 +11,10 @@ public class RabbitConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory factory = new CachingConnectionFactory();
-        factory.setHost("localhost");
-        factory.setVirtualHost("/");
-        factory.setUsername("guest");
-        factory.setPassword("guest");
+        factory.setHost("cow.rmq2.cloudamqp.com");
+        factory.setVirtualHost("vodmfbxi");
+        factory.setUsername("vodmfbxi");
+        factory.setPassword("FtsofKRuXERSyG_A6AmhcGUxNsYk_8wJ");
         factory.setPort(5672);
         return factory;
     }

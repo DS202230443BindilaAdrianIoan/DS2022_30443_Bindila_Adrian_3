@@ -4,6 +4,19 @@ version: '3.7'
 
 # Define services
 services:
+#  # RabbitMQ service
+#  rabbitmq:
+#    image: rabbitmq:3-management-alpine
+#    container_name: 'rabbitmq'
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    volumes:
+#      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+#      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+#    networks:
+#      - rabbitmq_go_net
+
   # App backend service
   app-server:
     # Configuration for building the docker image for the backend service
@@ -13,6 +26,8 @@ services:
     ports:
       - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
       - "443:443"
+#      - "5673:5672"
+#      - "15673:15672"
     restart: always
     depends_on:
       - db # This service depends on mysql. Start that first.
@@ -63,4 +78,6 @@ volumes:
 # Networks to be created to facilitate communication between containers
 networks:
   backend:
-  frontend:    
+  frontend:
+#  rabbitmq_go_net:
+#    driver: bridge

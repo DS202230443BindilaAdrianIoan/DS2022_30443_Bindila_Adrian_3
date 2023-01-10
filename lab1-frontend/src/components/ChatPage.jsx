@@ -18,7 +18,7 @@ import { over } from "stompjs";
 export default function ChatPage() {
   let currentUser = JSON.parse(localStorage.getItem("user"));
   var stompClient = null;
-  const [messages, setMessages] = useState([]);
+  const [allMessages, setAllMessages] = useState([]);
   const [messageText, setMessageText] = useState("");
   const [selectedUser, setSelectedUser] = useState();
   const [users, setUsers] = useState([
@@ -68,7 +68,8 @@ export default function ChatPage() {
   function onMessageReceived(payload) {
     var payloadData = JSON.parse(payload.body);
     console.log(payloadData);
-    setMessages((prev) => {
+
+    setAllMessages((prev) => {
       return [...prev, payloadData];
     });
   }
@@ -79,25 +80,15 @@ export default function ChatPage() {
       receiverId: selectedUser.id,
       text: messageText,
     };
-    setMessages((prev) => {
+    setAllMessages((prev) => {
       return [...prev, message];
     });
-    console.log(messages);
     send(message);
     setMessageText("");
     e.preventDefault();
   }
   function handleChange(e) {
     setMessageText(e.target.value);
-  }
-  function loadMessages() {
-    setMessages(
-      messages.filter(
-        (msg) =>
-          // !(msg.receiverId === currentUser.id || msg.senderId === currentUser.id)
-          false
-      )
-    );
   }
 
   return (
@@ -114,8 +105,12 @@ export default function ChatPage() {
                     action
                     onClick={() => {
                       setSelectedUser(user);
-                      loadMessages(user);
+                      // loadMessages();
                       setMessageText("");
+                    }}
+                    style={{
+                      background:
+                        selectedUser && user.id === selectedUser.id && "yellow",
                     }}
                   >
                     {user.username}
@@ -127,20 +122,37 @@ export default function ChatPage() {
         <Col>
           {!!selectedUser ? (
             <Container>
-              <div className="d-flex align-items-center justify-content-between">
-                <h3 className="text-center py-3 d-inline">
+              <div className="d-flex flex-column align-items-start justify-content-between">
+                <h3 className="py-3 d-inline">
                   Energy Consumption Tech Support
                 </h3>
                 <h6>Talking to {selectedUser.username}</h6>
               </div>
               <ul className="list-group" style={{ marginBottom: "60px" }}>
-                {messages.length > 0 ? (
-                  messages.map((msg, index) => (
-                    <li className="list-group-item" key={index}>
-                      {/* <strong>{msg.senderId}</strong> */}
-                      <p>{msg.text}</p>
-                    </li>
-                  ))
+                {allMessages.length > 0 ? (
+                  allMessages
+                    .filter(
+                      (msg) =>
+                        (msg.senderId === selectedUser.id &&
+                          msg.receiverId === currentUser.id) ||
+                        (msg.senderId === currentUser.id &&
+                          msg.receiverId === selectedUser.id)
+                    )
+                    .map((msg, index) => (
+                      <li
+                        className={
+                          msg.receiverId === selectedUser.id
+                            ? "chat-sent-message"
+                            : "chat-received-message"
+                        }
+                        key={index}
+                      >
+                        <div className="list-group-item my-1">
+                          {/* <strong>{msg.senderId}</strong> */}
+                          <p className="text-wrap">{msg.text}</p>
+                        </div>
+                      </li>
+                    ))
                 ) : (
                   <div className="text-center mt-5 pt-5">
                     <p className="lead text-center">Fetching Messages</p>
