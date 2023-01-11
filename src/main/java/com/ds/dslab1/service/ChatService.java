@@ -1,7 +1,6 @@
 package com.ds.dslab1.service;
 
 import com.ds.dslab1.dto.ChatMessageDTO;
-import com.ds.dslab1.model.NotificationMessage;
 import com.ds.dslab1.model.User;
 import com.ds.dslab1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
